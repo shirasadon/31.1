@@ -6,35 +6,6 @@ const Book = require("./models/book");
 const Author = require("./models/author");
 var mongoDB = "mongodb://127.0.0.1/Amazot";
 const { Schema } = mongoose;
-const AuthorSchema = Schema;
-
-const Auther = new Schema(
-    {
-        name: {
-            type: String,
-        },
-    },
-    {
-        adress: {
-            type: String,
-        },
-    },{
-        phone: {
-            type: String,
-        },
-    },
-    {
-        isAvile: {
-            type: String,
-        },
-    },
-    {
-        birthday: {
-            type: String,
-        },
-    },  
-);
-
 
 mongoose
   .connect(mongoDB)
