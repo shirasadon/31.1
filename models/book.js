@@ -14,13 +14,12 @@ const Book = mongoose.model(
     type: String,
     required: true,
   },
-  dete: {
-    type: Date,
+  date: {
+    type: String,
     required: true,
   },
   author: {
     type: Schema.Types.ObjectId,
-    required: true,
     ref:"Author"
   },
   isInStock: {
@@ -29,4 +28,4 @@ const Book = mongoose.model(
   },
 })
 )
-module.exports = BookSchema
+module.exports = Book

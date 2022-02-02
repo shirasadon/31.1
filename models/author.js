@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { stringify } = require("querystring");
 const { Schema } = mongoose;
 const AuthorSchema = Schema;
 const Author = mongoose.model(
@@ -28,7 +27,7 @@ const Author = mongoose.model(
   })
 );
 
-module.exports = AuthorSchema;
+module.exports = Author;
 
 
 

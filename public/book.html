@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select name="thebook" id="">
+      <option value="book"></option>
+    </select>
+    <input data-rol="name" type="text" placeholder="name" />
+    <input data-rol="publish" type="text" placeholder="publish" />
+    <input data-rol="date" type="text" placeholder="date" />
+    <input data-rol="author" type="text" placeholder="author" />
+    <input data-rol="isInStock" type="text" placeholder="isInStock" />
+    <input data-rol="btn" type="button" value="add a book" />
+    <input data-rol="thebooks" type="button" value="get books" />
+
+    <input data-rol="update" type="button" value="update book" />
+    <input data-rol="upbook" type="text" placeholder="update a book" />
+    <h2>the books</h2>
+    <ul data-role="allbooks"></ul>
+    <script>
+      $(function () {
+          
+        $('[data-rol="btn"]').click(function () {
+          let name = $('[data-rol="name"]').val();
+          let publish = $('[data-rol="publish"]').val();
+          let date = $('[data-rol="date"]').val();
+          let author = $('[data-rol="author"]').val();
+          let isInStock = $('[data-rol="isInStock"]').val();
+
+          $.post(
+            "/book",
+            { name, publish, date, author, isInStock },
+            function (data) {
+              console.log(data);
+            }
+          );
+        });
+      });
+
+      $('[data-rol="thebooks"]').click(function () {
+        $.get("/books", function (response) {
+          const thelistBooks = $('[data-role="allbooks"]');
+          thelistBooks.html("");
+          $.each(response, (_, book) => {
+            const list = $(`<li></li>`);
+            list.text(book.name);
+            thelistBooks.append(list);
+          });
+        });
+      });
+
+      $('[data-rol="update"]').click(function () {
+        let name = $('[data-rol="name"]').val();
+        let publish = $('[data-rol="publish"]').val();
+        let date = $('[data-rol="date"]').val();
+        let author = $('[data-rol="author"]').val();
+        let isInStock = $('[data-rol="isInStock"]').val();
+        let theid = $('[data-rol="upbook"]').val();
+        $.ajax({
+          method: "PUT",
+          contentType: "application/json",
+          url: `/book/${theid}`,
+          data: { theid, name, publish, date, author, isInStock },
+        });
+      });
+    </script>
+  </body>
+</html>

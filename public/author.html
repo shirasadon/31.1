@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <select name="theauthor" id="">
+      <option disabled="disabled">loading data</option>
+    </select>
+    <input data-rol="name" type="text" placeholder="name" />
+    <input data-rol="adress" type="text" placeholder="adress" />
+    <input data-rol="phone" type="text" placeholder="phone" />
+    <input data-rol="isAliv" type="text" placeholder="isAliv" />
+    <input data-rol="birthday" type="text" placeholder="birthday" />
+    <input data-rol="btn" type="button" value="add author" />
+    <input data-rol="theauthors" type="button" value="get authors" />
+    <h2>the authors</h2>
+    <ul data-role="allauthor"></ul>
+    <script>
+      $(function () {
+        // function addAuthorToSelect() {
+        //   let name = $('[data-rol="name"]');
+        //   name.html("");
+        //   const thesection = $('[name="theauthor"]');
+        //   $.each(name, function (_, thename) {
+        //     const option = $("<option></option>");
+        //     option.text(thename);
+        //     // option.attr( 'value', itrate._id)
+        //     // theoption.attr({ value: sec.id }).text(sec.name);
+        //     console.log(option);
+        //     thesection.append(option);
+        //   });
+        // }
+
+        $('[data-rol="btn"]').click(function () {
+          let name = $('[data-rol="name"]').val();
+          let adress = $('[data-rol="adress"]').val();
+          let phone = $('[data-rol="phone"]').val();
+          let isAliv = $('[data-rol="isAliv"]').val();
+          let birthday = $('[data-rol="birthday"]').val();
+          $.post(
+            "/author",
+            { name, adress, phone, isAliv, birthday },
+            function (response) {}
+          );
+        });
+
+        $('[data-rol="theauthors"]').click(function () {
+          $.get("/author", function (response) {
+            const thelistAuthors = $('[data-role="allauthor"]');
+            thelistAuthors.html("");
+            $.each(response, (_, author) => {
+              const list = $(`<li></li>`);
+              list.text(author.name);
+              thelistAuthors.append(list);
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
